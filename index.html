@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>React Project</title>
+        <script src="https://unpkg.com/react@16.7.0/umd/react.development.js"></script>
+        <script src="https://unpkg.com/react-dom@16.7.0/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="root1"></div>
+        <div id="root2"></div>
+        <div id="root3"></div>
+        <div id="root4"></div>
+        <div id="root5"></div>
+        <div id="root6"></div>
+        <div id="root7"></div>
+        <div id="root8"></div>
+        <div id="root9"></div>
+
+        <script type="text/javascript">
+            //Render Single Element
+            ReactDOM.render(
+                React.createElement(
+                    "h1",
+                    {"style": {"color": "red"}},
+                    "Hello World"
+                ),
+                document.getElementById("root1")
+            );
+
+            // Render Element with children
+            ReactDOM.render(
+                React.createElement("div", null, 
+                    React.createElement(
+                        "h2",
+                        null,
+                        "Children"
+                    )
+                ),
+                document.getElementById("root2")
+            );
+        </script>
+
+        <script type="text/babel">
+            // Easy way to render element using Jsx and Babel compiler
+            let name = "Prabakaran";
+            ReactDOM.render(
+                <h1>Hello {name}</h1>,
+                document.getElementById("root3")
+            );
+
+            // Create component Welcome and using it
+            const Welcome = () => <h2>Welcome to React</h2>;
+            ReactDOM.render(
+                <Welcome />,
+                document.getElementById("root4")
+            );
+
+            // Create component Hello and pass argument using props
+            const Hello = (props) => <h2>Hello {props.library}</h2>;
+            ReactDOM.render(
+                <Hello library="React"/>,
+                document.getElementById("root5")
+            );
+
+            // Component composition. App component use people component and render
+            const People = ({name}) => <h3>Hello {name}</h3>;
+            const App = () => (
+                <div>
+                    <People name="Shidi" />
+                    <People name="Khoo" />
+                    <People name="Putra" />
+                    <People name="SJ" />
+                </div>    
+            );
+            
+            ReactDOM.render(
+                <App />,
+                document.getElementById("root6")
+            );
+
+             // Using Javascript class to render react component
+             const People1 = ({name}) => <h3>Hello {name}</h3>;
+             class App1 extends React.Component {
+                render() { 
+                    return (
+                        <div>
+                            <People name="Shidi" />
+                            <People name="Khoo" />
+                            <People name="Putra" />
+                            <People name="SJ" />
+                        </div>    
+                    )
+                }
+            };
+            
+            ReactDOM.render(
+                <App1 />,
+                document.getElementById("root7")
+            );
+
+
+            // Change state using events
+            class App2 extends React.Component {
+                state = {
+                    loggedIn: false
+                }
+                logIn = () => this.setState({loggedIn: true});
+                logOut = () => this.setState({loggedIn: false});
+                render() { 
+                    return (
+                        <div>
+                            <button onClick={this.logIn}>Log In</button>
+                            <button onClick={this.logOut}>Log out</button>
+                            <div>
+                                User is { this.state.loggedIn ? "Logged In" : "Not log in" }
+                            </div>   
+                        </div> 
+                    )
+                }
+            };
+            
+            ReactDOM.render(
+                <App2 />,
+                document.getElementById("root8")
+            );
+
+            //Create list of lakes
+            let lakeList = ["Lake 1", "Lake 2", "Lake 3"];
+            const Lake = ({name}) => <h4>{name}</h4>;
+            
+            const App3 = ({lakes}) => (
+                <ul>
+                    {lakes.map((lake, i) => 
+                        <li key={i}>{lake}</li>
+                    )}
+                </ul>
+            );
+            
+            ReactDOM.render(
+                <App3 lakes={lakeList}/>,
+                document.getElementById("root9")
+            );
+        </script>
+    </body>
+</html>
